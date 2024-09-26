@@ -14,6 +14,7 @@ import java.util.UUID;
 @Service
 public class RefreshTokenService {
 
+    // autowired in spring boot is used to inject the object dependency implicitly
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
@@ -25,7 +26,7 @@ public class RefreshTokenService {
         RefreshToken refreshToken = RefreshToken.builder()
                     .userInfo(userInfoExtracted)
                     .token(UUID.randomUUID().toString())
-                    .expiryDate(Instant.now().plusMillis(600000))
+                    .expiryDate(Instant.now().plusMillis(600000)) // 1 hr expiry
                     .build();
         return refreshTokenRepository.save(refreshToken);
     }
@@ -35,7 +36,7 @@ public class RefreshTokenService {
     }
 
     public RefreshToken verifyExpiration(RefreshToken token){
-        if(token.getExpiryDate().compareTo(Instant.now())<0){
+        if(token.getExpiryDate().compareTo(Instant.now())<0){ // delete if token is expired
             refreshTokenRepository.delete(token);
             throw new RuntimeException(token.getToken() + " Refresh token is expired. Please make a new login..!");
         }

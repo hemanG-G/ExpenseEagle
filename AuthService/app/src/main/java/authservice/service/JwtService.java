@@ -15,10 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// Purpose of this class: Store Tokens , Token Validity check , Extracting Details from Token
 @Service
 public class JwtService {
 
-    //this is unoptimal
+    //this is unoptimal and should be stored in a secure location
     public static final String SECRET = "357638792F423F4428472B4B6250655368566D597133743677397A2443264629";
 
     public String extractUsername(String token) {
@@ -31,13 +32,13 @@ public class JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+        return claimsResolver.apply(claims); // Checkout apply function of the functional interface in docs(it has generic return type and param POG )
     }
 
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parser()
-                .setSigningKey(getSignKey())
+                .parser()  // basically a builder  that enables chaining
+                .setSigningKey(getSignKey())  // decoder for the key
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -62,6 +63,7 @@ public class JwtService {
 
 
     private String createToken(Map<String, Object> claims, String username) {
+        // builder pattern for chaining
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)

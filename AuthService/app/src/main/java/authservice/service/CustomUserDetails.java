@@ -12,9 +12,10 @@ import java.util.List;
 
 
 
-// this class is basically storing the details of a given user by giving a UserInfo variable , and its also used to retrieve the details
+// This class is basically saving the details of a given user of type  UserInfo which is taken in as a parameter
+// and its also used to retrieve the details
 public class CustomUserDetails extends UserInfo
-        implements UserDetails // inbuilt user details interface
+        implements UserDetails // inbuilt interface for user details
 {
 
     private String username;
