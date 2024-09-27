@@ -17,6 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
+//Controllers are responsible for handling endpoints and requests.
+// They receive input, prepare data for the service, and return the response.
+
+
 @Controller
 public class TokenController
 {
@@ -30,7 +35,7 @@ public class TokenController
     @Autowired
     private JwtService jwtService;
 
-    @PostMapping("auth/v1/login")
+    @PostMapping("auth/v1/login") // login request is when both access(jwt) token and refresh token are expired , hence reissue after authenticating user
     public ResponseEntity AuthenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
         if(authentication.isAuthenticated()){
@@ -45,7 +50,7 @@ public class TokenController
         }
     }
 
-    @PostMapping("auth/v1/refreshToken")
+    @PostMapping("auth/v1/refreshToken")  // this is request when refresh token is expired and access token is still valid
     public JwtResponseDTO refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
         return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
                 .map(refreshTokenService::verifyExpiration)

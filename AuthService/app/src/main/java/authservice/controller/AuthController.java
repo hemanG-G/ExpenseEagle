@@ -30,15 +30,15 @@ public class AuthController
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @PostMapping("auth/v1/signup")
-    public ResponseEntity SignUp(@RequestBody UserInfoDto userInfoDto){
+    @PostMapping("auth/v1/signup") // here have to create new access token and refresh token
+    public ResponseEntity SignUp(@RequestBody UserInfoDto userInfoDto){ // takes in userinfoDTO which is a  request and returns response entity
         try{
-            Boolean isSignUped = userDetailsService.signupUser(userInfoDto);
+            Boolean isSignUped = userDetailsService.signupUser(userInfoDto);  // checking if user is already signed up
             if(Boolean.FALSE.equals(isSignUped)){
                 return new ResponseEntity<>("Already Exist", HttpStatus.BAD_REQUEST);
             }
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userInfoDto.getUsername());
-            String jwtToken = jwtService.GenerateToken(userInfoDto.getUsername());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userInfoDto.getUsername()); // creating refresh token
+            String jwtToken = jwtService.GenerateToken(userInfoDto.getUsername()); // creating jwt/access  token
             return new ResponseEntity<>(JwtResponseDTO.builder().accessToken(jwtToken).
                     token(refreshToken.getToken()).build(), HttpStatus.OK);
         }catch (Exception ex){

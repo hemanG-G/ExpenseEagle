@@ -22,8 +22,9 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 @Data
-public class JwtAuthFilter extends OncePerRequestFilter
+public class JwtAuthFilter extends OncePerRequestFilter  // basically a Middleware , which will be called before the request is processed
 {
+
 
     @Autowired
     private final JwtService jwtService;
@@ -43,15 +44,15 @@ public class JwtAuthFilter extends OncePerRequestFilter
             username = jwtService.extractUsername(token);
         }
 
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){ // this means this is first time user is requesting
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if(jwtService.validateToken(token, userDetails)){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);   // setting the security context for this user
             }
 
         }
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response); // this will pass the request to the next filter in the chain
     }
 }

@@ -19,11 +19,19 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 
+
+
+// Class Summary :
+// class LoadByUsername
+// class CheckIfUserAlreadyExist
+// class SignupUser
+
 @Component
 @AllArgsConstructor
 @Data
 public class UserDetailsServiceImpl implements UserDetailsService
 {
+
 
     @Autowired
     private final UserRepository userRepository;
@@ -34,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-    @Override
+    @Override // Override loadUserByUsername method , in the userdetailservice interface
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
 
@@ -59,7 +67,21 @@ public class UserDetailsServiceImpl implements UserDetailsService
             return false;
         }
         String userId = UUID.randomUUID().toString();
-        userRepository.save(new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>()));
+
+        userInfoDto.setUserId(userId);
+
+        UserInfo user = new UserInfo
+                (
+                        userId,
+                        userInfoDto.getUsername(),
+                        userInfoDto.getPassword(),
+                        new HashSet<>()
+                );
+
+        userRepository.save(user);
+
+
+
         // pushEventToQueue
         return true;
     }
