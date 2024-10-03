@@ -1,7 +1,7 @@
-package com.singhdevhub.userservice.deserializer;
+package com.hemang.userservice.deserializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.singhdevhub.userservice.entities.UserInfoDto;
+import com.hemang.userservice.entities.UserInfoDto;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;

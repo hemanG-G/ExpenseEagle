@@ -1,4 +1,4 @@
-package com.singhdevhub.userservice.entities;
+package com.hemang.userservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,12 +15,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // considers firstName as first_name
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInfoDto
+public class UserInfoDto // Dto = Data Transfer Object , not used in database but used in communication internally between services
 {
 
-    @JsonProperty("user_id")
+    // after Deseriealize we store into this object
+
+
+    @JsonProperty("user_id") // treat userId as user_id
     @NonNull
     private String userId;
 
@@ -43,8 +46,8 @@ public class UserInfoDto
     @JsonProperty("profile_pic")
     private String profilePic;
 
-    public UserInfo transformToUserInfo() {
-        return UserInfo.builder()
+    public UserInfo transformToUserInfo() {  // this is to convert UserInfoDto to UserInfo, to store in database we use UserInfo instead of UserInfoDto
+        return UserInfo.builder() // not passing id as it is auto generated
                 .firstName(firstName)
                 .lastName(lastName)
                 .userId(userId)

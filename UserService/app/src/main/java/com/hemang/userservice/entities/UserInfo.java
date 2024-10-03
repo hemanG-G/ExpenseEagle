@@ -1,4 +1,4 @@
-package com.singhdevhub.userservice.entities;
+package com.hemang.userservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.singhdevhub.userservice.repository;
+package com.hemang.userservice.repository;
 
-import com.singhdevhub.userservice.entities.UserInfo;
+import com.hemang.userservice.entities.UserInfo;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

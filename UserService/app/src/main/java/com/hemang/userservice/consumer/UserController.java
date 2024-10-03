@@ -1,7 +1,7 @@
-package com.singhdevhub.userservice.consumer;
+package com.hemang.userservice.consumer;
 
-import com.singhdevhub.userservice.entities.UserInfoDto;
-import com.singhdevhub.userservice.service.UserService;
+import com.hemang.userservice.entities.UserInfoDto;
+import com.hemang.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
