@@ -1,6 +1,7 @@
 package authservice.controller;
 
 import authservice.entities.RefreshToken;
+import authservice.eventProducer.UserInfoProducer;
 import authservice.model.UserInfoDto;
 import authservice.response.JwtResponseDTO;
 import authservice.service.JwtService;
@@ -29,6 +30,8 @@ public class AuthController
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+
 
     @PostMapping("auth/v1/signup") // here have to create new access token and refresh token
     public ResponseEntity SignUp(@RequestBody UserInfoDto userInfoDto){ // takes in userinfoDTO which is a  request and returns response entity

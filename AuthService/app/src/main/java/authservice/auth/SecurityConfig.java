@@ -1,5 +1,6 @@
 package authservice.auth;
 
+import authservice.eventProducer.UserInfoProducer;
 import authservice.repository.UserRepository;
 import authservice.service.UserDetailsServiceImpl;
 import lombok.Data;
@@ -34,7 +35,8 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     //autowired is used to inject the object dependency implicitly. It internally uses setter or constructor injection.
 
-
+    @Autowired
+    private final UserInfoProducer userInfoProducer;
 
     // Why Beans ?
     // we are making beans of all classes within Security Config , because we are not creating objects of these classes , we are just creating beans , and giving them to the spring container
@@ -46,8 +48,9 @@ public class SecurityConfig {
     @Bean
     @Autowired
     public UserDetailsService userDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return new UserDetailsServiceImpl(userRepository, passwordEncoder);
+        return new UserDetailsServiceImpl(userRepository, passwordEncoder,userInfoProducer);
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {

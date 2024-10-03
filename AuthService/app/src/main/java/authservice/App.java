@@ -13,7 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"authService.repository"})
-@ComponentScan(basePackages = {"authService.controller", "authService.auth", "authService.service"})
+@ComponentScan(basePackages = {"authService.controller", "authService.auth", "authService.service",
+        "authservice.eventProducer", "authservice.config"})   // If you dont mention all packages, the beans will not be created of the classes in the mentioned packages
 public class App {
 
     public static void main(String[] args) {
