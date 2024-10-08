@@ -20,6 +20,8 @@ public class AuthServiceConsumer
     @Autowired
     private ObjectMapper objectMapper;
 
+
+    //  This method is used to consume the kafka event
     @KafkaListener(topics = "${spring.kafka.topic-json.name}", groupId = "${spring.kafka.consumer.group-id}")
     public void listen(UserInfoDto eventData) {
         try{

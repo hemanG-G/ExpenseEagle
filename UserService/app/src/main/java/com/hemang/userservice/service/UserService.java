@@ -18,6 +18,8 @@ public class UserService // only  This service is used to interact with the data
     @Autowired
     private final UserRepository userRepository;
 
+
+    // This method is used to create or update the user in the database
     public UserInfoDto createOrUpdateUser(UserInfoDto userInfoDto){
         UnaryOperator<UserInfo> updatingUser = user -> { // implementing functional interface called UnaryOperator (from DOCS : Function <T,R> , this takes T and returns R)
             // Update logic here
@@ -40,7 +42,7 @@ public class UserService // only  This service is used to interact with the data
                 userInfo.getProfilePic()
         );
     }
-
+    // This method is used to get the user from the database
     public UserInfoDto getUser(UserInfoDto userInfoDto) throws Exception{
         Optional<UserInfo> userInfoDtoOpt = userRepository.findByUserId(userInfoDto.getUserId());
         if(userInfoDtoOpt.isEmpty()){
