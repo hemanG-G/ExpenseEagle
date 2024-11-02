@@ -30,6 +30,11 @@ The User Service is responsible for managing user information. It saves user dat
 - [Kafka](https://kafka.apache.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 
+![usrsvc](https://github.com/user-attachments/assets/a5165a6a-dde2-4f9a-98dc-1abae1e866d6)
+
+
+
+
 ### Installation
 
 1. **Get the UserService repository:**
